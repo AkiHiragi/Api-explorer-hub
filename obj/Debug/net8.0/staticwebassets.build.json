@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "FIqwRrsqTGqFbwrRwGRG74JHbT+Q+r/jW04l5ZbhBJs=",
+  "Source": "api-explorer-hub",
+  "BasePath": "_content/api-explorer-hub",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

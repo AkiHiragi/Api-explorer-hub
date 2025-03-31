@@ -1,0 +1,7 @@
+D:\Никита\Content\api-explorer-hub\obj\Debug\net8.0\Api.csproj.AssemblyReference.cache
+D:\Никита\Content\api-explorer-hub\obj\Debug\net8.0\Api.GeneratedMSBuildEditorConfig.editorconfig
+D:\Никита\Content\api-explorer-hub\obj\Debug\net8.0\Api.AssemblyInfoInputs.cache
+D:\Никита\Content\api-explorer-hub\obj\Debug\net8.0\Api.AssemblyInfo.cs
+D:\Никита\Content\api-explorer-hub\obj\Debug\net8.0\Api.csproj.CoreCompileInputs.cache
+D:\Никита\Content\api-explorer-hub\obj\Debug\net8.0\Api.MvcApplicationPartsAssemblyInfo.cs
+D:\Никита\Content\api-explorer-hub\obj\Debug\net8.0\Api.MvcApplicationPartsAssemblyInfo.cache
