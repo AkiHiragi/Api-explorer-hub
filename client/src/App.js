@@ -1,12 +1,29 @@
+import React, { useState } from "react";
 import TableContact from "./layout/TableContact/TableContact";
 
-const contacts = [
-    { id: 1, name: `Имя фамилия 1`, email: `email1@example.ru` },
-    { id: 2, name: `Имя фамилия 2`, email: `email2@example.ru` },
-    { id: 3, name: `Имя фамилия 3`, email: `email3@example.ru` },
-]
 
 const App = () => {
+
+    const initialContacts = Array.from({ length: 3 }, (_, i) => (
+        {
+            id: i + 1,
+            name: `Имя фамилия ${i + 1}`,
+            email: `email${i + 1}@example.ru`
+        }
+    ));
+
+    const [contacts, setContacts] = useState(initialContacts);
+
+    function AddContact() {
+        const newId = contacts.length > 0 ? Math.max(...contacts.map(c => c.id)) + 1 : 1;
+        const contact = {
+            id: newId,
+            name: `Имя фамилия ${newId}`,
+            email: `email${newId}@example.ru`
+        };
+        setContacts([...contacts, contact]);
+    }
+
     return (
         <div className="container mt-5">
             <div className="card">
@@ -15,6 +32,11 @@ const App = () => {
                 </div>
                 <div className="card-body">
                     <TableContact contacts={contacts} />
+                    <div>
+                        <button className="btn btn-primary" onClick={AddContact}>
+                            Добавить контакт
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
