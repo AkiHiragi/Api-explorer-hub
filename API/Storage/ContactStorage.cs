@@ -23,7 +23,7 @@ public class ContactStorage {
         }
 
         var faker = new Faker<Contact>("ru")
-            .RuleFor(c => c.Id, f => f.IndexGlobal)
+            .RuleFor(c => c.Id, f => f.IndexGlobal + 1)
             .RuleFor(c => c.Name, f => f.Name.FullName())
             .RuleFor(c => c.Email, f => {
                 var fullName = f.Name.FullName().Split();
