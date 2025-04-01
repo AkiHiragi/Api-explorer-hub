@@ -1,26 +1,31 @@
 using Microsoft.AspNetCore.Mvc;
 
-public class ContactManagementController : BaseController {
+public class ContactManagementController : BaseController
+{
     private ContactStorage storage;
 
-    public ContactManagementController(ContactStorage storage) {
+    public ContactManagementController(ContactStorage storage)
+    {
         this.storage = storage;
     }
 
     [HttpPost("contacts")]
-    public IActionResult CreateContact([FromBody] Contact contact) {
+    public IActionResult CreateContact([FromBody] Contact contact)
+    {
         return storage.Add(contact) ?
-        Created($"Контакт успешно создан", contact) :
+        Ok(contact) :
         Conflict("Контакт с указанным ID существует");
     }
 
     [HttpGet("contacts")]
-    public ActionResult<List<Contact>> GetContacts() {
+    public ActionResult<List<Contact>> GetContacts()
+    {
         return Ok(storage.GetContacts());
     }
 
     [HttpGet("contacts/{id}")]
-    public ActionResult<Contact> GetContactById(int id) {
+    public ActionResult<Contact> GetContactById(int id)
+    {
         if (id < 0)
             return BadRequest("Id контакта не может быть отрицательным");
         return storage.GetContact(id) == null ?
@@ -29,14 +34,16 @@ public class ContactManagementController : BaseController {
     }
 
     [HttpDelete("contacts/{id}")]
-    public ActionResult DeleteContact(int id) {
+    public ActionResult DeleteContact(int id)
+    {
         return storage.Remove(id) ?
         NoContent() :
         Conflict("Контакта с указанным ID не существует");
     }
 
     [HttpPut("contacts/{id}")]
-    public ActionResult UpdateContact(int id, [FromBody] ContactDto contact) {
+    public ActionResult UpdateContact(int id, [FromBody] ContactDto contact)
+    {
         return storage.Update(id, contact) ?
         Ok(id) :
         Conflict("Контакта с указанным ID не существует");
