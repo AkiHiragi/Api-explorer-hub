@@ -4,6 +4,9 @@
 [Bb]in/
 [Oo]bj/
 
+#
+.vscode/
+
 # dependencies
 node_modules
 .pnp
