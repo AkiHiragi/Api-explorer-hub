@@ -5,17 +5,13 @@ import FormContact from "./layout/FormContact/FormContact";
 
 const App = () => {
 
-    const initialContacts = Array.from({ length: 3 }, (_, i) => (
-        {
-            id: i + 1,
-            name: `Имя фамилия ${i + 1}`,
-            email: `email${i + 1}@example.ru`
-        }
-    ));
+    const [contacts, setContacts] = useState([
+        { id: 21, name: `Имя фамилия 1`, email: `q@e1rt` },
+        { id: 12, name: `Имя фамилия 2`, email: `q@e2rt` },
+        { id: 6, name: `Имя фамилия 3`, email: `q@e3rt` }
+    ]);
 
-    const [contacts, setContacts] = useState(initialContacts);
-
-    function addContact(contactName, contactEmail) {
+    const addContact = (contactName, contactEmail) => {
         const newId = contacts.length > 0 ? Math.max(...contacts.map(c => c.id)) + 1 : 1;
         const contact = {
             id: newId,
@@ -25,6 +21,10 @@ const App = () => {
         setContacts([...contacts, contact]);
     }
 
+    const deleteContact = (id) => {
+        setContacts(contacts.filter(item => item.id !== id));
+    }
+
     return (
         <div className="container mt-5">
             <div className="card">
@@ -32,7 +32,10 @@ const App = () => {
                     <h1>Список контактов</h1>
                 </div>
                 <div className="card-body">
-                    <TableContact contacts={contacts} />
+                    <TableContact
+                        contacts={contacts}
+                        deleteContact={deleteContact}
+                    />
                     <FormContact addContact={addContact} />
 
                 </div>

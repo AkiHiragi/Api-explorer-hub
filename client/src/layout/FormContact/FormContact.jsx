@@ -8,6 +8,8 @@ const FormContact = (props) => {
     const submit = () => {
         if (contactName !== "" && contactEmail !== "")
             props.addContact(contactName, contactEmail);
+        setContactName("");
+        setContactEmail("");
     }
 
     return (
@@ -17,11 +19,13 @@ const FormContact = (props) => {
                     <div className="mb-3">
                         <label className="form-label">Введите имя:</label>
                         <input className="form-control" type="text"
+                            value={contactName}
                             onChange={(e) => setContactName(e.target.value)} />
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Введите e-mail:</label>
                         <textarea className="form-control" rows={1}
+                            value={contactEmail}
                             onChange={(e) => setContactEmail(e.target.value)} />
                     </div>
                 </form>
