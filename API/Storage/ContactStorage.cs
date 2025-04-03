@@ -1,16 +1,13 @@
 using Bogus;
 
-public class ContactStorage
-{
+public class InMemoryStorage : IStorage {
 
     private List<Contact> Contacts { get; set; }
 
-    public ContactStorage()
-    {
+    public InMemoryStorage() {
         this.Contacts = new List<Contact>();
 
-        string Transliterate(string cyrillic)
-        {
+        string Transliterate(string cyrillic) {
             var translitMap = new Dictionary<string, string>
             {
                 {"а", "a"}, {"б", "b"}, {"в", "v"}, {"г", "g"}, {"д", "d"},
@@ -28,8 +25,7 @@ public class ContactStorage
         var faker = new Faker<Contact>("ru")
             .RuleFor(c => c.Id, f => f.IndexGlobal + 1)
             .RuleFor(c => c.Name, f => f.Name.FullName())
-            .RuleFor(c => c.Email, f =>
-            {
+            .RuleFor(c => c.Email, f => {
                 var fullName = f.Name.FullName().Split();
                 return $"{Transliterate(fullName[0])}.{Transliterate(fullName[1])}@example.com".ToLower();
             });
@@ -37,32 +33,25 @@ public class ContactStorage
         Contacts.AddRange(faker.Generate(10));
     }
 
-    public bool Add(Contact contact)
-    {
-        if (!Contacts.Any(el => el.Id == contact.Id))
-        {
+    public List<Contact> GetContacts() {
+        return this.Contacts;
+    }
+
+    public bool Add(Contact contact) {
+        if (!Contacts.Any(el => el.Id == contact.Id)) {
             Contacts.Add(contact);
             return true;
         }
         return false;
     }
 
-    public List<Contact> GetContacts()
-    {
-        return this.Contacts;
-    }
-
-    public Contact GetContact(int id)
-    {
+    public Contact GetContact(int id) {
         return Contacts.FirstOrDefault(item => item.Id == id);
     }
 
-    public bool Remove(int id)
-    {
-        foreach (var contact in Contacts)
-        {
-            if (contact.Id == id)
-            {
+    public bool Remove(int id) {
+        foreach (var contact in Contacts) {
+            if (contact.Id == id) {
                 Contacts.Remove(contact);
                 return true;
             }
@@ -70,12 +59,9 @@ public class ContactStorage
         return false;
     }
 
-    public bool Update(int id, ContactDto contact)
-    {
-        for (int i = 0; i < Contacts.Count; i++)
-        {
-            if (Contacts[i].Id == id)
-            {
+    public bool Update(int id, ContactDto contact) {
+        for (int i = 0; i < Contacts.Count; i++) {
+            if (Contacts[i].Id == id) {
                 if (!string.IsNullOrWhiteSpace(contact.Name))
                     Contacts[i].Name = contact.Name;
                 if (!string.IsNullOrWhiteSpace(contact.Email))
