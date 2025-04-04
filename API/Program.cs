@@ -9,13 +9,14 @@ builder.Services.AddSwaggerGen(opt => {
     });
 });
 builder.Services.AddControllers();
-builder.Services.AddSingleton<IStorage, SqliteStorage>();
+var connectionString = builder.Configuration.GetConnectionString("SqliteStringConnection");
+builder.Services.AddSingleton<IStorage>(new SqliteStorage(connectionString));
 
 builder.Services.AddCors(
 opt => opt.AddPolicy("CorsPolicy", policy => {
     policy.AllowAnyMethod()
     .AllowAnyHeader()
-    .WithOrigins("http://localhost:3000");
+    .WithOrigins(builder.Configuration["client"]);
 }));
 
 var app = builder.Build();

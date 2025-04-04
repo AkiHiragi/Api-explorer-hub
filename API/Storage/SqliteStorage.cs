@@ -2,7 +2,11 @@ using Microsoft.Data.Sqlite;
 
 public class SqliteStorage : IStorage {
 
-    private string connectionString = @"Data Source=contacts.db";
+    private readonly string connectionString;
+
+    public SqliteStorage(string connectionString) {
+        this.connectionString = connectionString;
+    }
 
     public bool Add(Contact contact) {
         using var connection = new SqliteConnection(connectionString);
@@ -68,7 +72,6 @@ public class SqliteStorage : IStorage {
         return command.ExecuteNonQuery() > 0;
 
     }
-
 
     public bool Update(int id, ContactDto contact) {
         using var connection = new SqliteConnection(connectionString);
