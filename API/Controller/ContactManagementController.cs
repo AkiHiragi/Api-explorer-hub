@@ -10,7 +10,7 @@ public class ContactManagementController : BaseController {
 
     [HttpPost("contacts")]
     public IActionResult CreateContact([FromBody] Contact contact) {
-        return storage.Add(contact) ?
+        return (storage.Add(contact) != null) ?
         Ok(contact) :
         Conflict("Контакт с указанным ID существует");
     }

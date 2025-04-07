@@ -37,12 +37,12 @@ public class InMemoryStorage : IStorage {
         return this.Contacts;
     }
 
-    public bool Add(Contact contact) {
+    public Contact Add(Contact contact) {
         if (!Contacts.Any(el => el.Id == contact.Id)) {
             Contacts.Add(contact);
-            return true;
+            return contact;
         }
-        return false;
+        return null;
     }
 
     public Contact GetContact(int id) {
