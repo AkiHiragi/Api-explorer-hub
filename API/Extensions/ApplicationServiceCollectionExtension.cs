@@ -1,6 +1,6 @@
 using Microsoft.OpenApi.Models;
 
-public static class ApplicationCollectionServiceExtension {
+public static class ApplicationServiceCollectionExtension {
     public static IServiceCollection AddServiceCollection(
         this IServiceCollection services,
         ConfigurationManager configuration) {
