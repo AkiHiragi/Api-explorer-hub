@@ -2,9 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 
 public class ContactManagementController : BaseController {
 
-    private readonly IStorage storage;
+    private readonly IPaginationStorage storage;
 
-    public ContactManagementController(IStorage storage) {
+    public ContactManagementController(IPaginationStorage storage) {
         this.storage = storage;
     }
 
@@ -22,11 +22,9 @@ public class ContactManagementController : BaseController {
 
     [HttpGet("contacts/{id}")]
     public ActionResult<Contact> GetContactById(int id) {
-        if (id < 0)
-            return BadRequest("Id контакта не может быть отрицательным");
-        return storage.GetContact(id) == null ?
-        NotFound("Контакта с указанным Id нет в списке контактов") :
-        Ok(storage.GetContact(id));
+        return storage.GetContactById(id) != null ?
+            Ok(storage.GetContactById(id))
+            : NotFound();
     }
 
     [HttpDelete("contacts/{id}")]

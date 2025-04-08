@@ -16,7 +16,7 @@ public static class ApplicationServiceCollectionExtension {
         var connectionString = configuration.GetConnectionString("SqliteStringConnection");
         services.AddDbContext<SqliteDBContext>(opt => opt.UseSqlite(connectionString));
         // services.AddSingleton<IStorage>(new SqliteStorage(connectionString));
-        services.AddScoped<IStorage, SqliteEfStorage>();
+        services.AddScoped<IPaginationStorage, SqlitePaginationEfStorage>();
         services.AddScoped<IInitializer, SqliteEfFakerInitializer>();
 
         services.AddCors(

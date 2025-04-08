@@ -45,10 +45,6 @@ public class InMemoryStorage : IStorage {
         return null;
     }
 
-    public Contact GetContact(int id) {
-        return Contacts.FirstOrDefault(item => item.Id == id);
-    }
-
     public bool Remove(int id) {
         foreach (var contact in Contacts) {
             if (contact.Id == id) {

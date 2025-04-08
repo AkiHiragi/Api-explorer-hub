@@ -24,25 +24,6 @@ public class SqliteStorage : IStorage {
         return contact;
     }
 
-    public Contact GetContact(int id) {
-        var connection = new SqliteConnection(connectionString);
-        connection.Open();
-
-        var command = connection.CreateCommand();
-        command.CommandText = "SELECT * FROM contacts WHERE id=@id";
-        command.Parameters.AddWithValue("@id", id);
-
-        using var reader = command.ExecuteReader();
-        if (reader.Read()) {
-            return new Contact {
-                Id = reader.GetInt32(0),
-                Name = reader.GetString(1),
-                Email = reader.GetString(2)
-            };
-        }
-        return null;
-    }
-
     public List<Contact> GetContacts() {
         var contacts = new List<Contact>();
 

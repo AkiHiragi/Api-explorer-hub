@@ -1,6 +1,6 @@
 
 public class SqliteEfStorage : IStorage {
-    private readonly SqliteDBContext context;
+    protected readonly SqliteDBContext context;
 
     public SqliteEfStorage(SqliteDBContext context) {
         this.context = context;
@@ -10,10 +10,6 @@ public class SqliteEfStorage : IStorage {
         context.Contacts.Add(contact);
         context.SaveChanges();
         return contact;
-    }
-
-    public Contact GetContact(int id) {
-        return context.Contacts.FirstOrDefault(item => item.Id == id);
     }
 
     public List<Contact> GetContacts() {
