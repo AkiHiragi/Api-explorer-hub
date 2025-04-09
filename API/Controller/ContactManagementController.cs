@@ -16,26 +16,38 @@ public class ContactManagementController : BaseController {
     }
 
     [HttpGet("contacts")]
-    public ActionResult<List<Contact>> GetContacts() {
+    public IActionResult GetContacts() {
         return Ok(storage.GetContacts());
     }
 
+    [HttpGet("contacts/page")]
+    public IActionResult GetContacts(int pageNumber = 1, int pageSize = 5) {
+        var (contacts, total) = storage.GetContacts(pageNumber, pageSize);
+        var response = new {
+            Contacts = contacts,
+            TotalCount = total,
+            CurrentPage = pageNumber,
+            PageSize = pageSize
+        };
+        return Ok(response);
+    }
+
     [HttpGet("contacts/{id}")]
-    public ActionResult<Contact> GetContactById(int id) {
+    public IActionResult GetContactById(int id) {
         return storage.GetContactById(id) != null ?
             Ok(storage.GetContactById(id))
             : NotFound();
     }
 
     [HttpDelete("contacts/{id}")]
-    public ActionResult DeleteContact(int id) {
+    public IActionResult DeleteContact(int id) {
         return storage.Remove(id) ?
         NoContent() :
         Conflict("Контакта с указанным ID не существует");
     }
 
     [HttpPut("contacts/{id}")]
-    public ActionResult UpdateContact(int id, [FromBody] ContactDto contact) {
+    public IActionResult UpdateContact(int id, [FromBody] ContactDto contact) {
         return storage.Update(id, contact) ?
         Ok(id) :
         Conflict("Контакта с указанным ID не существует");
